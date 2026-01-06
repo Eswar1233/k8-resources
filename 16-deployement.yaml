@@ -24,4 +24,4 @@ spec:
     spec: 
       containedeployement:
       - name: nginx
-        image: nginx:stable-perl
+        image: nginx:1.14.2
