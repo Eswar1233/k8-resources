@@ -14,3 +14,5 @@ spec:
   containers:
   - name: nginx
     image: nginx
+
+# used to select external resources outside of kubernetes cluster. and we can mention the information of external tours
