@@ -1,3 +1,4 @@
+--- # PV creation
 apiVersion: v1
 kind: PersistentVolume
 metadata:
@@ -11,7 +12,7 @@ spec:
     driver: ebs.csi.aws.com
     fsType: ext4
     volumeHandle: vol-037c1149ec5fa1c0d
----
+--- # PVC creation
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
@@ -24,11 +25,14 @@ spec:
   resources:
     requests:
       storage: 15Gi
----
+--- # pod creation
 apiVersion: v1
 kind: Pod
 metadata:
   name: nginx
+  labels:
+    purpose: ebs-static-demo
+    project: roboshop
 spec:
   nodeSelector:
     topology.kubernetes.io/zone: us-east-1b
@@ -42,3 +46,20 @@ spec:
   - name: persistent-storage
     persistentVolumeClaim:
       claimName: ebs-static
+--- # service ncreation Loadbalancer
+apiVersion: v1
+kind: Service
+metadata: 
+  name: ebs-static
+  labels:
+    purpose: ebs-static-demo
+    project: roboshop
+spec:
+  type: Loadbalancer
+  selector: 
+    purpose: ebs-static-demo
+    project: roboshop
+  ports:
+    - protocol: TCP
+      port: 80 # service port
+      targetPort: 80 # container port
