@@ -1,3 +1,4 @@
+--- #PVC creation
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
@@ -9,7 +10,7 @@ spec:
   resources:
     requests:
       storage: 4Gi
---- #pod creation
+--- #Pod creation
 apiVersion: v1
 kind: Pod
 metadata:
